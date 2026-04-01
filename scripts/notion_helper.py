@@ -81,6 +81,31 @@ def cmd_create_minimal_data_source(parent_page_id, title):
     print(json.dumps(result, indent=2))
 
 
+def cmd_get_data_source(data_source_id):
+    result = request('GET', f'/data_sources/{data_source_id}')
+    print(json.dumps(result, indent=2))
+
+
+def cmd_get_page_children(page_id):
+    result = request('GET', f'/blocks/{page_id}/children')
+    print(json.dumps(result, indent=2))
+
+
+def cmd_create_registry_seed(database_id):
+    payload = {
+        'parent': {'database_id': database_id},
+        'properties': {
+            'Name': {
+                'title': [
+                    {'type': 'text', 'text': {'content': 'Delivery Manager Orchestrator'}}
+                ]
+            }
+        }
+    }
+    result = request('POST', '/pages', payload)
+    print(json.dumps(result, indent=2))
+
+
 def main():
     if len(sys.argv) < 2:
         print('Usage: notion_helper.py <command> [args...]', file=sys.stderr)
@@ -89,15 +114,24 @@ def main():
     cmd = sys.argv[1]
     if cmd == 'get-page' and len(sys.argv) == 3:
         cmd_get_page(sys.argv[2])
+    elif cmd == 'get-data-source' and len(sys.argv) == 3:
+        cmd_get_data_source(sys.argv[2])
     elif cmd == 'create-page' and len(sys.argv) == 4:
         cmd_create_page(sys.argv[2], sys.argv[3])
     elif cmd == 'create-minimal-data-source' and len(sys.argv) == 4:
         cmd_create_minimal_data_source(sys.argv[2], sys.argv[3])
+    elif cmd == 'get-page-children' and len(sys.argv) == 3:
+        cmd_get_page_children(sys.argv[2])
+    elif cmd == 'create-registry-seed' and len(sys.argv) == 3:
+        cmd_create_registry_seed(sys.argv[2])
     else:
         print('Usage:', file=sys.stderr)
         print('  notion_helper.py get-page <page_id>', file=sys.stderr)
+        print('  notion_helper.py get-data-source <data_source_id>', file=sys.stderr)
+        print('  notion_helper.py get-page-children <page_id>', file=sys.stderr)
         print('  notion_helper.py create-page <parent_page_id> <title>', file=sys.stderr)
         print('  notion_helper.py create-minimal-data-source <parent_page_id> <title>', file=sys.stderr)
+        print('  notion_helper.py create-registry-seed <database_id>', file=sys.stderr)
         sys.exit(2)
 
 
