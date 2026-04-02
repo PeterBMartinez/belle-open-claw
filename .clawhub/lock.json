@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "skills": {
+    "clickup-mcp": {
+      "version": "1.0.0",
+      "installedAt": 1774633381070
+    },
+    "skill-vetter": {
+      "version": "1.0.0",
+      "installedAt": 1775165383174
+    }
+  }
+}
