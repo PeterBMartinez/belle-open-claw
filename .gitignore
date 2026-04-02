@@ -1,1 +1,9 @@
 scripts/clickup-watcher.env
+.env
+.env.*
+!.env.example
+*.env
+*.local
+.openclaw/
+__pycache__/
+tmp-openclaw-config.txt
