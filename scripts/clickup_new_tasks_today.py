@@ -13,6 +13,8 @@ TOKEN = os.environ.get("CLICKUP_TOKEN")
 TZ_NAME = os.environ.get("CLICKUP_TZ", "America/New_York")
 STATE_PATH = Path(os.environ.get("CLICKUP_STATE_PATH", "/home/peter/.openclaw/state/clickup_new_tasks_today.json"))
 MAX_PAGES = int(os.environ.get("CLICKUP_MAX_PAGES", "10"))
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "6482200799:AAERIkgTNlhpuePDYWgzywMCydV2uFTP5cE")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "849538467")
 
 
 def fail(msg: str, code: int = 1):
@@ -40,6 +42,19 @@ def save_state(state: dict) -> None:
 
 def clickup_get(url: str) -> dict:
     req = urllib.request.Request(url, headers={"Authorization": TOKEN})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return json.load(resp)
+
+
+def send_telegram(message: str) -> dict:
+    url = "https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage"
+    data = urllib.parse.urlencode({
+        "chat_id": TELEGRAM_CHAT_ID,
+        "text": message,
+        "parse_mode": "HTML",
+        "disable_web_page_preview": "true",
+    }).encode()
+    req = urllib.request.Request(url, data=data)
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.load(resp)
 
@@ -120,6 +135,34 @@ def main():
     }
 
     print(json.dumps(payload, indent=2))
+
+    if new_tasks:
+        lines = [
+            "<b>ClickUp Sprint Watcher</b>",
+            f"<i>{day_key}</i>",
+            "",
+            f"<b>{len(new_tasks)}</b> new task(s) created today in list <code>{LIST_ID}</code>",
+            "",
+        ]
+        for task in new_tasks[:15]:
+            creator = ((task.get("creator") or {}).get("username") or (task.get("creator") or {}).get("email") or "unknown")
+            status = ((task.get("status") or {}).get("status") or "unknown")
+            name = (task.get("name") or "Untitled").replace("<", "&lt;").replace(">", "&gt;")
+            lines.append(f"• <b>{name}</b>")
+            lines.append(f"  status: {status} | creator: {creator}")
+            if task.get("url"):
+                lines.append(task.get("url"))
+            lines.append("")
+        if len(new_tasks) > 15:
+            lines.append(f"…and {len(new_tasks) - 15} more")
+        try:
+            tg_result = send_telegram("\n".join(lines))
+            if tg_result.get("ok"):
+                print(f"Telegram notification sent for {len(new_tasks)} new task(s)")
+            else:
+                print("Telegram notification failed", file=sys.stderr)
+        except Exception as exc:
+            print(f"Telegram notification failed: {exc}", file=sys.stderr)
 
     state = {
         "day": day_key,
