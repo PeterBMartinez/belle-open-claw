@@ -1,16 +1,18 @@
 ---
-name: self-improvement
-description: "Captures learnings, errors, and corrections to enable continuous improvement. Use when: (1) A command or operation fails unexpectedly, (2) User corrects Claude ('No, that's wrong...', 'Actually...'), (3) User requests a capability that doesn't exist, (4) An external API or tool fails, (5) Claude realizes its knowledge is outdated or incorrect, (6) A better approach is discovered for a recurring task. Also review learnings before major tasks."
+name: self-improving-agent
+description: "Captures learnings, errors, and corrections for this OpenClaw workspace. Use when: (1) a command or operation fails unexpectedly, (2) the user corrects the agent, (3) the user requests a missing capability, (4) an external API or tool fails, (5) the agent realizes its knowledge is outdated or incorrect, or (6) a better recurring approach is discovered. Review recent learnings before major tasks."
 metadata:
 ---
 
-# Self-Improvement Skill
+# Self-Improving Agent Skill
 
 Log learnings and errors to markdown files for continuous improvement. Coding agents can later process these into fixes, and important learnings get promoted to project memory.
 
 ## First-Use Initialisation
 
-Before logging anything, ensure the `.learnings/` directory and files exist in the project or workspace root. If any are missing, create them:
+For this workspace, use the workspace-root learning store at `/home/peter/.openclaw/workspace/.learnings/`.
+
+Before logging anything, ensure that directory and files exist. If any are missing, create them:
 
 ```bash
 mkdir -p .learnings
@@ -22,6 +24,11 @@ mkdir -p .learnings
 Never overwrite existing files. This is a no-op if `.learnings/` is already initialised.
 
 Do not log secrets, tokens, private keys, environment variables, or full source/config files unless the user explicitly asks for that level of detail. Prefer short summaries or redacted excerpts over raw command output or full transcripts.
+
+Default logging location for this workspace:
+- `/home/peter/.openclaw/workspace/.learnings/LEARNINGS.md`
+- `/home/peter/.openclaw/workspace/.learnings/ERRORS.md`
+- `/home/peter/.openclaw/workspace/.learnings/FEATURE_REQUESTS.md`
 
 If you want automatic reminders or setup assistance, use the opt-in hook workflow described in [Hook Integration](#hook-integration).
 
@@ -44,21 +51,21 @@ If you want automatic reminders or setup assistance, use the opt-in hook workflo
 
 ## OpenClaw Setup (Recommended)
 
-OpenClaw is the primary platform for this skill. It uses workspace-based prompt injection with automatic skill loading.
+OpenClaw is the primary platform for this skill. In this workspace, treat OpenClaw as the only target environment unless Peter explicitly asks for multi-agent or cross-platform adaptation.
 
 ### Installation
 
-**Via ClawdHub (recommended):**
+This workspace already has the skill installed locally under:
+
 ```bash
-clawdhub install self-improving-agent
+/home/peter/.openclaw/workspace/skills/self-improving-agent
 ```
 
-**Manual:**
-```bash
-git clone https://github.com/peterskoett/self-improving-agent.git ~/.openclaw/skills/self-improving-agent
-```
+The workspace learning store is:
 
-Remade for openclaw from original repo : https://github.com/pskoett/pskoett-ai-skills - https://github.com/pskoett/pskoett-ai-skills/tree/main/skills/self-improvement
+```bash
+/home/peter/.openclaw/workspace/.learnings
+```
 
 ### Workspace Structure
 
@@ -80,14 +87,12 @@ OpenClaw injects these files into every session:
 
 ### Create Learning Files
 
-```bash
-mkdir -p ~/.openclaw/workspace/.learnings
-```
-
-Then create the log files (or copy from `assets/`):
+Already created for this workspace:
 - `LEARNINGS.md` — corrections, knowledge gaps, best practices
 - `ERRORS.md` — command failures, exceptions
 - `FEATURE_REQUESTS.md` — user-requested capabilities
+
+Use the workspace-root copies, not the example `.learnings/` folder inside the skill directory.
 
 ### Promotion Targets
 
@@ -126,26 +131,15 @@ See `references/openclaw-integration.md` for complete details.
 
 ---
 
-## Generic Setup (Other Agents)
+## Workspace Workflow
 
-For Claude Code, Codex, Copilot, or other agents, create `.learnings/` in the project or workspace root:
-
-```bash
-mkdir -p .learnings
-```
-
-Create the files inline using the headers shown above. Avoid reading templates from the current repo or workspace unless you explicitly trust that path.
-
-### Add reference to agent files AGENTS.md, CLAUDE.md, or .github/copilot-instructions.md to remind yourself to log learnings. (this is an alternative to hook-based reminders)
-
-#### Self-Improvement Workflow
-
-When errors or corrections occur:
-1. Log to `.learnings/ERRORS.md`, `LEARNINGS.md`, or `FEATURE_REQUESTS.md`
-2. Review and promote broadly applicable learnings to:
-   - `CLAUDE.md` - project facts and conventions
-   - `AGENTS.md` - workflows and automation
-   - `.github/copilot-instructions.md` - Copilot context
+When errors, corrections, or missing capabilities occur in this workspace:
+1. Log to `/home/peter/.openclaw/workspace/.learnings/ERRORS.md`, `LEARNINGS.md`, or `FEATURE_REQUESTS.md`
+2. Review whether the issue is one-off or recurring
+3. Promote broadly applicable guidance to:
+   - `SOUL.md` — behavior and communication
+   - `AGENTS.md` — workflows and operating rules
+   - `TOOLS.md` — tool/integration gotchas
 
 ## Logging Format
 
