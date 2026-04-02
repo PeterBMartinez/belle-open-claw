@@ -1,19 +1,19 @@
 ---
 name: skill-vetter
 version: 1.0.0
-description: Security-first skill vetting for AI agents. Use before installing any skill from ClawdHub, GitHub, or other sources. Checks for red flags, permission scope, and suspicious patterns.
+description: Practical skill vetting for this OpenClaw workspace. Use before installing skills from ClawHub, GitHub, or other sources. Review source, files touched, command behavior, network access, and secret exposure risk.
 ---
 
 # Skill Vetter 🔒
 
-Security-first vetting protocol for AI agent skills. **Never install a skill without vetting it first.**
+Practical security-first vetting protocol for skills in this OpenClaw workspace. Use judgment, not rigid blanket rules.
 
 ## When to Use
 
-- Before installing any skill from ClawdHub
-- Before running skills from GitHub repos
-- When evaluating skills shared by other agents
-- Anytime you're asked to install unknown code
+- Before installing any skill from ClawHub
+- Before manually copying in skills from GitHub repos or gists
+- When evaluating skills shared by other agents or external sources
+- Anytime a skill includes scripts, hooks, network calls, or touches sensitive files
 
 ## Vetting Protocol
 
@@ -30,27 +30,28 @@ Questions to answer:
 
 ### Step 2: Code Review (MANDATORY)
 
-Read ALL files in the skill. Check for these **RED FLAGS**:
+Read the skill files that actually define behavior: `SKILL.md`, scripts, hooks, handler files, manifests, and metadata. Check for these red flags and context questions:
 
 ```
-🚨 REJECT IMMEDIATELY IF YOU SEE:
+🚨 HIGH-CONCERN SIGNALS
 ─────────────────────────────────────────
-• curl/wget to unknown URLs
-• Sends data to external servers
-• Requests credentials/tokens/API keys
-• Reads ~/.ssh, ~/.aws, ~/.config without clear reason
-• Accesses MEMORY.md, USER.md, SOUL.md, IDENTITY.md
-• Uses base64 decode on anything
-• Uses eval() or exec() with external input
-• Modifies system files outside workspace
-• Installs packages without listing them
-• Network calls to IPs instead of domains
-• Obfuscated code (compressed, encoded, minified)
+• Sends data to unexpected external servers
+• Requests credentials/tokens/API keys without a clear user-approved need
+• Reads ~/.ssh, ~/.aws, ~/.config, browser profiles, or credential stores without clear reason
+• Uses eval() / exec() with untrusted or external input
+• Modifies files outside the workspace without a strong reason
+• Installs packages or binaries without clearly saying so
+• Uses obfuscated, encoded, minified, or intentionally hard-to-read code
 • Requests elevated/sudo permissions
-• Accesses browser cookies/sessions
-• Touches credential files
+• Accesses cookies, sessions, or auth stores
+• Hides network behavior behind helper scripts or encoded payloads
 ─────────────────────────────────────────
 ```
+
+Notes:
+- Access to workspace files like `MEMORY.md`, `USER.md`, `SOUL.md`, or `TOOLS.md` is **not automatically malicious** in OpenClaw; judge whether that access matches the skill’s stated purpose.
+- Network calls are not automatically bad; check whether the destination and purpose are expected and clearly disclosed.
+- Base64 or compressed content is not automatically bad either, but it deserves closer inspection if it hides behavior.
 
 ### Step 3: Permission Scope
 
@@ -126,10 +127,20 @@ curl -s "https://raw.githubusercontent.com/OWNER/REPO/main/skills/SKILL_NAME/SKI
 4. **New/unknown sources** → Maximum scrutiny
 5. **Skills requesting credentials** → Human approval always
 
+## Workspace Vetting Heuristics
+
+Use these practical rules in this workspace:
+
+- Prefer `clawhub inspect <slug> --files` or reading installed files before trusting a skill
+- Treat official OpenClaw/OpenClaw-skills sources as lower risk, not zero risk
+- Match the requested capability to the permissions the skill actually needs
+- Ask Peter before enabling anything high-risk, especially hooks, credential access, destructive file operations, or broad external network behavior
+- Document non-obvious conclusions when a skill is reviewed and approved
+
 ## Remember
 
 - No skill is worth compromising security
-- When in doubt, don't install
+- When in doubt, pause or install cautiously
 - Ask your human for high-risk decisions
 - Document what you vet for future reference
 
