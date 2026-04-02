@@ -13,7 +13,7 @@ TOKEN = os.environ.get("CLICKUP_TOKEN")
 TZ_NAME = os.environ.get("CLICKUP_TZ", "America/New_York")
 STATE_PATH = Path(os.environ.get("CLICKUP_STATE_PATH", "/home/peter/.openclaw/state/clickup_new_tasks_today.json"))
 MAX_PAGES = int(os.environ.get("CLICKUP_MAX_PAGES", "10"))
-TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "6482200799:AAERIkgTNlhpuePDYWgzywMCydV2uFTP5cE")
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "849538467")
 
 
@@ -137,6 +137,8 @@ def main():
     print(json.dumps(payload, indent=2))
 
     if new_tasks:
+        if not TELEGRAM_BOT_TOKEN:
+            fail("TELEGRAM_BOT_TOKEN is not set")
         lines = [
             "<b>ClickUp Sprint Watcher</b>",
             f"<i>{day_key}</i>",
