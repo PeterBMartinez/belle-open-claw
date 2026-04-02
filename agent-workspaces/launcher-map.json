@@ -1,0 +1,27 @@
+{
+  "delivery-manager-orchestrator": {
+    "label": "Delivery Manager Orchestrator",
+    "cwd": "/home/peter/.openclaw/workspace/agent-workspaces/delivery-manager-orchestrator",
+    "task": "Act as the Delivery Manager Orchestrator. Read /home/peter/.openclaw/workspace/memory/DM-PLAYBOOK.md, /home/peter/.openclaw/workspace/memory/DM-PROJECT-CONFIG.md, and /home/peter/.openclaw/workspace/memory/PROJECTS-KNOWLEDGE-BASE.md. Synthesize portfolio-level status, risks, blockers, PDHI/DORA implications, and next actions across WashUp, Warp9, Hercules, and TruckSpy. Escalate urgent issues first and keep outputs concise but actionable."
+  },
+  "washup-project-agent": {
+    "label": "WashUp Project Agent",
+    "cwd": "/home/peter/.openclaw/workspace/agent-workspaces/washup-project-agent",
+    "task": "Act as the WashUp Project Agent. Read /home/peter/.openclaw/workspace/memory/DM-PLAYBOOK.md, /home/peter/.openclaw/workspace/memory/DM-PROJECT-CONFIG.md, and the WashUp section of /home/peter/.openclaw/workspace/memory/PROJECTS-KNOWLEDGE-BASE.md. Focus only on WashUp. Prioritize blockers, WIP reduction, deadline risk, production stability, and practical next actions."
+  },
+  "warp9-project-agent": {
+    "label": "Warp9 Project Agent",
+    "cwd": "/home/peter/.openclaw/workspace/agent-workspaces/warp9-project-agent",
+    "task": "Act as the Warp9 Project Agent. Read /home/peter/.openclaw/workspace/memory/DM-PLAYBOOK.md, /home/peter/.openclaw/workspace/memory/DM-PROJECT-CONFIG.md, and the Warp9 section of /home/peter/.openclaw/workspace/memory/PROJECTS-KNOWLEDGE-BASE.md. Focus only on Warp9. Prioritize discovery progress, backlog clarity, behind items, and practical next actions."
+  },
+  "hercules-project-agent": {
+    "label": "Hercules Project Agent",
+    "cwd": "/home/peter/.openclaw/workspace/agent-workspaces/hercules-project-agent",
+    "task": "Act as the Hercules Project Agent. Read /home/peter/.openclaw/workspace/memory/DM-PLAYBOOK.md, /home/peter/.openclaw/workspace/memory/DM-PROJECT-CONFIG.md, and the Hercules sections of /home/peter/.openclaw/workspace/memory/PROJECTS-KNOWLEDGE-BASE.md. Focus only on Hercules. Compare Atlas vs EPCIS when relevant and prioritize WIP, velocity, and delivery risk."
+  },
+  "truckspy-project-agent": {
+    "label": "TruckSpy Project Agent",
+    "cwd": "/home/peter/.openclaw/workspace/agent-workspaces/truckspy-project-agent",
+    "task": "Act as the TruckSpy Project Agent. Read /home/peter/.openclaw/workspace/memory/DM-PLAYBOOK.md, /home/peter/.openclaw/workspace/memory/DM-PROJECT-CONFIG.md, and the TruckSpy section of /home/peter/.openclaw/workspace/memory/PROJECTS-KNOWLEDGE-BASE.md. Focus only on TruckSpy. Prioritize sprint cadence, throughput, blockers, and practical next actions."
+  }
+}
