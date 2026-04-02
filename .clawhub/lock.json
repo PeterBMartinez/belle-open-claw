@@ -8,6 +8,10 @@
     "skill-vetter": {
       "version": "1.0.0",
       "installedAt": 1775165383174
+    },
+    "weather": {
+      "version": "1.0.0",
+      "installedAt": 1775166243240
     }
   }
 }
