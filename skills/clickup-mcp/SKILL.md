@@ -1,5 +1,5 @@
 ---
-name: clickup-mcp
+name: clickup
 description: Access ClickUp directly via API token for search, task lookup, updates, comments, docs, chat, and time tracking. Prefer direct API access over MCP/OAuth.
 homepage: https://clickup.com
 metadata: {"clawdbot":{"emoji":"✅","requires":{"env":["CLICKUP_TOKEN"]}}}
