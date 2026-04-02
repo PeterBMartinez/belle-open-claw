@@ -10,7 +10,7 @@ How to use:
 
 ## Active
 
-- [ ] Give Belle all the details to document the Pi cluster, including how it is networked, what resources each Pi has, and how the overall setup is structured.
+_None right now._
 
 ## Completed
 
@@ -18,3 +18,7 @@ How to use:
   - Completed 2026-04-02.
   - Mutual SSH trust is now configured across pi-01, pi-02, and pi-03 using ed25519 keys and hostname aliases.
   - Any Pi can now SSH to the others without prompts over Tailscale.
+- [x] Give Belle all the details to document the Pi cluster, including how it is networked, what resources each Pi has, and how the overall setup is structured.
+  - Completed 2026-04-02.
+  - Captured in `memory/PI-CLUSTER-SETUP.md`.
+  - Includes network layout, hardware basics, running services, and role assessment for pi-01, pi-02, and pi-03.
