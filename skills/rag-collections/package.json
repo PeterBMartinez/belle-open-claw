@@ -1,0 +1,18 @@
+{
+  "name": "rag-collections",
+  "version": "1.0.0",
+  "description": "RAG collections and semantic search system skill",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rag",
+    "multi-agent",
+    "orchestration",
+    "vector-search",
+    "chat-agents"
+  ],
+  "author": "OpenClaw",
+  "license": "MIT"
+}
