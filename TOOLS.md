@@ -52,7 +52,7 @@ Access GitHub issues and pull requests.
 - Mac IP: 100.126.245.12 (Tailscale)
 - Notion: Connected, API key configured
 - GitHub: gh-issues skill enabled
-- Timezone: America/New_York (EDT)
+- Timezone: America/Denver (MDT)
 
 ## Rules
 
