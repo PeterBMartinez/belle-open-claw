@@ -53,6 +53,21 @@ If you want automatic reminders or setup assistance, use the opt-in hook workflo
 
 OpenClaw is the primary platform for this skill. In this workspace, treat OpenClaw as the only target environment unless Peter explicitly asks for multi-agent or cross-platform adaptation.
 
+## ClawHub / CLI Policy
+
+This workspace now has the `clawhub` CLI installed and authenticated.
+
+Use it for:
+- registry-authenticated workflows
+- inspecting published skill metadata
+- publish / sync / whoami / login workflows
+- manual skill install/update operations when the native `openclaw` CLI is unavailable in the current shell
+
+Preferred order:
+1. `openclaw skills install|update|search` when the native OpenClaw CLI is available
+2. `clawhub` CLI as the fallback and for registry-auth workflows
+3. manual GitHub/raw-file install only if CLI paths are unavailable or broken
+
 ### Installation
 
 This workspace already has the skill installed locally under:
@@ -65,6 +80,15 @@ The workspace learning store is:
 
 ```bash
 /home/peter/.openclaw/workspace/.learnings
+```
+
+Useful CLI examples for this workspace:
+
+```bash
+clawhub whoami
+clawhub search "self improvement"
+clawhub inspect self-improving-agent --files
+clawhub update self-improving-agent
 ```
 
 ### Workspace Structure
