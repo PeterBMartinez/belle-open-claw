@@ -59,11 +59,19 @@ curl -X POST http://100.84.93.86:8000/api/v1/collections \
 
 ### Upload a Document
 ```bash
-curl -X POST http://100.84.93.86:8000/api/v1/documents \
-  -H "Content-Type: multipart/form-data" \
+curl -X POST http://100.84.93.86:8000/api/v1/documents/upload \
   -F "file=@document.pdf" \
   -F "collection_id=<collection_id>"
 ```
+
+### Upload a Markdown Document
+```bash
+curl -X POST http://100.84.93.86:8000/api/v1/documents/upload \
+  -F "file=@document.md;type=text/markdown" \
+  -F "collection_id=<collection_id>"
+```
+
+**Important:** when uploading `.md` files, explicitly set the multipart file content type to `text/markdown`. If omitted, some clients send Markdown as `application/octet-stream`, which causes ingestion to fail with `Unsupported file type: application/octet-stream`.
 
 ### Query Documents
 ```bash
