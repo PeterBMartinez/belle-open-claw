@@ -66,6 +66,39 @@ These are the core projects Peter is focusing on:
 
 **RAG API Note:** As of 2026-03-27, all collection names MUST be lowercase. Migration completed. When creating new collections, always use lowercase names.
 
+## Automation Preference
+
+- If a task retries 3 times due to failure, or hangs for 10 minutes, cancel the task instead of letting it continue indefinitely.
+
+## Pi Cluster
+
+- Peter has a 3-node Raspberry Pi setup.
+- **pi-01** = `100.84.93.86` (hosts the RAG API; also noted as running Qdrant and MinIO)
+- **pi-02** = `100.99.6.88` (OpenClaw, DM Automations)
+- **pi-03** = `100.121.226.64` (TBD)
+- SSD setup is attached to **pi-01** (per Peter, tentative wording: "I think").
+- As of 2026-04-02, mutual SSH cross-access is configured across all three Pis using ed25519 keys plus SSH config aliases, so any Pi can `ssh pi-01`, `ssh pi-02`, or `ssh pi-03` without prompts.
+
+## OpenClaw Config Notes
+
+- As of 2026-04-02, Peter restored pi-02 OpenClaw from `~/.openclaw/openclaw.json.bak.4` (March 26 backup) and restarted with `openclaw gateway --force`.
+- OpenAI Codex access was restored from `openclaw.json.bak-2026-04-01-security`, with auth profile `openai-codex:petermartinez225@gmail.com`, `gpt-5.4` restored to the main agent models list, and set as default with LM Studio fallback.
+- Full local execution access was enabled on pi-02:
+  - `tools.exec.security = full`
+  - `tools.exec.ask = off`
+  - `tools.exec.host = gateway`
+  - `agents.defaults.sandbox.mode = off`
+  - `~/.openclaw/exec-approvals.json` sets `main` to `security=full`, `ask=off`
+- Revert command saved by Peter:
+  - `cp ~/.openclaw/openclaw.json.bak-20260401-220655-pre-full-access ~/.openclaw/openclaw.json`
+  - `openclaw gateway --force`
+
+## Backlog System
+
+- Peter wants a lightweight assistant-managed backlog for ideas, asks, experiments, and future work.
+- Backlog file: `/home/peter/.openclaw/workspace/BACKLOG.md`
+- Peter can ask to add, remove, complete, reprioritize, or review items later.
+
 ## How to Update This File
 
 - Add significant learnings, decisions, and context
